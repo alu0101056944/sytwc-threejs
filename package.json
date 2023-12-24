@@ -1,12 +1,27 @@
 {
   "name": "sytwc-threejs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Presentation webpage for alu0101056944/gcceproject",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
   },
-  "keywords": [],
+  "keywords": [
+    "gatsby"
+  ],
   "author": "Marcos Barrios",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "gatsby": "^5.13.1",
+    "gatsby-plugin-sass": "^6.13.0",
+    "gatsby-plugin-image": "^3.12.3",
+    "gatsby-plugin-sharp": "^5.12.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sass": "^1.69.5"
+  }
 }

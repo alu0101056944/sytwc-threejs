@@ -1,0 +1,49 @@
+
+body {
+  background-color: black;
+
+  .mainDiv {
+    background-color: darkslategray;
+    width: 1100px;
+    min-height: 600px;
+    margin: auto;
+  }
+
+  .tabsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 99%;
+
+    %tabs-element {
+      margin: 0px 0px 8px 0px;
+    }
+
+    nav {
+      @extend %tabs-element;
+
+      width: 99%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+
+    main {
+      @extend %tabs-element;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .activeTab {
+      background-color: lightgray;
+    }
+
+    .inactiveTab {}
+  }
+}
