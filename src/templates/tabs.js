@@ -27,7 +27,6 @@ const Tabs = ({allContent = [{title: 'default'}]}) => {
           allContent.filter(content => content.title === nameOfActiveTab)
               .map(content => content.content)
         }
-        dsadjas
       </main>
     </div>
   );
