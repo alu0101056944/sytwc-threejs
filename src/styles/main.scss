@@ -14,21 +14,27 @@ body {
     min-height: 600px;
     margin: auto;
 
+
+    .logoDiv {
+      width: 75px;
+      height: 75px;
+      margin: 40px 0 5px 0;
+    }
+
+    .mainTitle {
+      font-size: x-large;
+      margin: 25px 0 25px 0;
+    }
+
+    .animationDiv {
+      width: 50%;
+      min-height: 400px;
+      background-color: gray;
+      display: flex;
+      justify-content: center;
+      align-items: center
+    }
+
     @include tabFeature();
-  }
-
-  .logoDiv {
-    width: 150px;
-    height: 150px;
-    margin: 40px 0 40px 0;
-  }
-
-  .animationDiv {
-    width: 98%;
-    min-height: 150;
-    background-color: gray;
-    display: flex;
-    justify-content: center;
-    align-items: center
   }
 }

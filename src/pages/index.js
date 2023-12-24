@@ -10,21 +10,22 @@ const IndexPage = () => {
 
   const tabsContent = [
         {
-          title: 'Foo',
+          title: '1. Obtención de información',
           content: (
                 <ContentAndSidebar
-                    sidebarContent={<p>fooodsadsjdjsj</p>}>
-                  <p>asdas is the FIRST tab's content</p>
+                    sidebarContent={<p>It's information content here</p>}>
+                  <p>A first 3D Scene here</p>
                 </ContentAndSidebar>
               )
         },
         {
-          title: 'Bar',
-          content: <p>This is the SECOND tab's content</p>
-        },
-        {
-          title: 'Baz',
-          content: <p>This is the THIRD tab's content</p>
+          title: '2. Arquitectura de la base de datos',
+          content: (
+                <ContentAndSidebar
+                      sidebarContent={<p>It's information content here</p>}>
+                  <p>A second 3D Scene here</p>
+                </ContentAndSidebar>
+              )
         },
       ];
 
@@ -33,6 +34,8 @@ const IndexPage = () => {
       <div className='logoDiv'>
           <StaticImage src='../images/icon.png' alt='Gastby logo'/>
       </div>
+
+      <h1 className='mainTitle'>Sistema de Business Intelligence para la selección de herramientas de proyecto</h1>
 
       <div className='animationDiv'>
         <p>A 3D animation goes here</p>
