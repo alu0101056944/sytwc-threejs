@@ -14,7 +14,7 @@ const IndexPage = () => {
           content: (
                 <ContentAndSidebar
                     sidebarContent={<p>fooodsadsjdjsj</p>}>
-                  <p>This is the FIRST tab's content</p>
+                  <p>asdas is the FIRST tab's content</p>
                 </ContentAndSidebar>
               )
         },
