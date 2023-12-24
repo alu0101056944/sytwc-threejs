@@ -1,0 +1,40 @@
+@mixin contentAndSidebarFeature() {
+  .contentAndSidebar {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  
+    margin: 3px 3px 3px 3px;
+  
+    .content {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      
+      width: 682px;
+      margin: 3px 7px 3px 3px;
+      background-color: MediumOrchid;
+    }
+  
+    .sidebar {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-content: center;
+  
+      width: 255px;
+      margin: 3px 7px 3px 0px;
+      padding: 5px 10px 5px 10px;
+  
+      background-color: yellow;
+
+      %common-sidebar {
+        width: 100%;
+        margin: 11px 6px 3px 6px;
+        padding: 3px 3px 3px 3px;
+      }
+  
+    }
+  }
+}

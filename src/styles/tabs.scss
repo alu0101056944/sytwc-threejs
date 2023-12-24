@@ -1,0 +1,52 @@
+
+@mixin tabFeature() {
+  .tabsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 99%;
+
+    %tabs-element {
+      margin: 0px 0px 8px 0px;
+    }
+
+    nav {
+      @extend %tabs-element;
+
+      width: 99%;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      button {
+        background-color: dimgrey;
+        margin: 15px 0px 15px 0px;
+        padding: 8px 50px 8px 50px;
+        border: 0px solid darkgray;
+        border-radius: 0px;
+      }
+
+      .activeTab {
+        background-color: lightgray;
+        padding: 12px 50px 12px 50px;
+      }
+
+      .inactiveTab {}
+
+    }
+
+    main {
+      @extend %tabs-element;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      @include contentAndSidebarFeature();
+    }
+  }
+}
