@@ -24,7 +24,8 @@ const Tabs = ({allContent = [{title: 'default'}]}) => {
       </nav>
       <main>
         {
-          allContent.filter(content => content.title === nameOfActiveTab).content
+          allContent.filter(content => content.title === nameOfActiveTab)
+              .map(content => content.content)
         }
         dsadjas
       </main>
