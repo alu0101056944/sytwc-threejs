@@ -32,7 +32,10 @@ const IndexPage = () => {
   return (
     <div className='mainDiv'>
       <div className='logoDiv'>
-          <StaticImage src='../images/icon.png' alt='Gastby logo'/>
+          <StaticImage src='../images/ull.png' alt='Gastby logo' width={200} height={100}/>
+          <div style={{display: 'flex', justifyContent: 'center', marginLeft: 20}}>
+            <p>Marcos Barrios Lorenzo, alu0101056944, 24/12/2023</p>
+          </div>
       </div>
 
       <h1 className='mainTitle'>Sistema de Business Intelligence para la selección de herramientas de proyecto</h1>

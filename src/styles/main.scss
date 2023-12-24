@@ -2,34 +2,38 @@
 @import './templates/tabs.scss';
 
 body {
-  background-color: black;
+  background-color: rgb(25, 25, 25);
 
   .mainDiv {
     display: flex;
     align-items: center;
     flex-direction: column;
 
-    background-color: darkslategray;
+    background-color: rgb(35, 35, 35);
     width: 1100px;
     min-height: 600px;
     margin: auto;
 
-
     .logoDiv {
-      width: 75px;
-      height: 75px;
+      display: flex;
+
+      width: 600;
+      height: 45px;
       margin: 40px 0 5px 0;
+
+      color: white;
     }
 
     .mainTitle {
       font-size: x-large;
       margin: 25px 0 25px 0;
+      color: white;
     }
 
     .animationDiv {
       width: 50%;
       min-height: 400px;
-      background-color: gray;
+      background-color: rgb(40, 40, 40);
       display: flex;
       justify-content: center;
       align-items: center
