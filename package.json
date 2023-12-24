@@ -1,6 +1,6 @@
 {
   "name": "sytwc-threejs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Presentation webpage for alu0101056944/gcceproject",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,9 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   },
-  "keywords": ["gatsby"],
+  "keywords": [
+    "gatsby"
+  ],
   "author": "Marcos Barrios",
   "license": "ISC",
   "devDependencies": {
