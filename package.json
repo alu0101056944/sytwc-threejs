@@ -1,0 +1,12 @@
+{
+  "name": "sytwc-threejs",
+  "version": "0.1.0",
+  "description": "Presentation webpage for alu0101056944/gcceproject",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Marcos Barrios",
+  "license": "ISC"
+}
