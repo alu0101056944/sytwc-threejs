@@ -3,6 +3,10 @@ body {
   background-color: black;
 
   .mainDiv {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
     background-color: darkslategray;
     width: 1100px;
     min-height: 600px;
@@ -28,6 +32,22 @@ body {
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
+
+      button {
+        background-color: dimgrey;
+        margin: 15px 0px 15px 0px;
+        padding: 8px 50px 8px 50px;
+        border: 0px solid darkgray;
+        border-radius: 0px;
+      }
+
+      .activeTab {
+        background-color: lightgray;
+        padding: 12px 50px 12px 50px;
+      }
+  
+      .inactiveTab {}
 
     }
 
@@ -39,11 +59,5 @@ body {
       justify-content: center;
       flex-direction: column;
     }
-
-    .activeTab {
-      background-color: lightgray;
-    }
-
-    .inactiveTab {}
   }
 }
