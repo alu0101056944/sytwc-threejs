@@ -1,0 +1,24 @@
+
+body {
+  background-color: black;
+
+  .mainDiv {
+    background-color: darkslategray;
+    width: 1100px;
+    min-height: 600px;
+    margin: auto;
+  }
+
+  .tabsContainer {
+    width: 98%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .activeTab {
+      background-color: lightgray;
+    }
+
+    .inactiveTab {}
+  }
+}
