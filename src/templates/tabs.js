@@ -12,9 +12,10 @@ const Tabs = ({allContent = [{title: 'default'}]}) => {
     <div className='tabsContainer'>
       <nav>
         {
-          allContent.map((content) => (
+          allContent.map((content, index) => (
                 <button
                     className={nameOfActiveTab === content.title ? 'activeTab' : 'inactiveTab'}
+                    key={`${content.title}${index}`}
                     onClick={() => setNameOfActiveTab(content.title)}>
                   {content.title}
                 </button>
@@ -25,6 +26,7 @@ const Tabs = ({allContent = [{title: 'default'}]}) => {
         {
           allContent.filter(content => content.title === nameOfActiveTab).content
         }
+        dsadjas
       </main>
     </div>
   );
