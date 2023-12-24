@@ -1,4 +1,4 @@
-# Landing page for the *Gestión de comunicación y conocimiento empresarial* subject
+# Landing page for *Gestión de comunicación y conocimiento empresarial* subject's project using ThreeJS and Gatsby.
 
 This is part of *Sistemas y Tecnologías Web: Cliente* subject's `ThreeJS` assignment. The requirements are:
 
