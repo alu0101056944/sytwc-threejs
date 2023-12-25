@@ -18,14 +18,48 @@ function setupScene() {
   const axes = new three.AxesHelper(20);
   scene.add(axes);
 
+  const spotLight = new three.SpotLight(0xffffff);
+  spotLight.position.set(0, 5, 0);
+  spotLight.angle = Math.PI / 5;
+  spotLight.castShadow = true;
+  spotLight.intensity = 1000;
+  spotLight.distance = 0;
+  spotLight.penumbra = 0.2;
+  spotLight.shadow.mapSize = new three.Vector2(1024, 1024);
+
+  const ambientLight = new three.AmbientLight(0x404040);
+  scene.add(ambientLight);
+
+  var planeGeometry=new three.PlaneGeometry(60,20);
+  var planeMaterial=new three.MeshLambertMaterial({
+      color:0xffffff,
+
+  });
+  var plane=new three.Mesh(planeGeometry,planeMaterial);
+  plane.rotation.x=-0.5*Math.PI;
+  plane.position.set(0,0,0);
+  plane.receiveShadow=true;
+  scene.add(plane);
+
   const sphereGeometry = new three.SphereGeometry(4, 20, 20);
   const sphereMaterial = new three.MeshBasicMaterial({
-          color:0x7777ff,
+          color:0x0077ff,
           wireframe:true
       });
   const sphere = new three.Mesh(sphereGeometry, sphereMaterial);
   sphere.position.set(0, 0, 0);
   scene.add(sphere);
+  
+  var cubeGeometry=new three.BoxGeometry(4,4,4);
+  var cubeMaterial=new three.MeshLambertMaterial({
+      color:0x00FF00,
+      wireframe:false
+  });
+  var cube=new three.Mesh(cubeGeometry,cubeMaterial);
+  cube.position.set(-4,3,0);
+  cube.castShadow=true;
+  // spotLight.target=cube;
+  scene.add(cube);
 
   camera.position.set(10, 30, 5);
   camera.lookAt(scene.position);
@@ -39,9 +73,6 @@ function setupScene() {
         undefined,
         (error) => console.error(error)
       );
-
-  // console.log('our scene: ');
-  // console.log(scene.children);
 
   // clear container first
   const container = document.querySelector('.mainAnimDiv');
