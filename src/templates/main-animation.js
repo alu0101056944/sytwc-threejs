@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 function setupScene() {
   const VIEWPORT_WIDTH = 500;
@@ -14,6 +15,9 @@ function setupScene() {
   const renderer = new three.WebGLRenderer();
   renderer.setClearColor(new three.Color(0x232323));
   renderer.setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.update();
 
   const axes = new three.AxesHelper(20);
   scene.add(axes);
