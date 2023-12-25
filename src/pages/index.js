@@ -5,14 +5,15 @@ import ContentAndSidebar from '../templates/content-and-sidebar';
 
 import '../styles/main.scss';
 import { StaticImage } from 'gatsby-plugin-image';
+import MainAnimation from '../templates/main-animation';
 
 const IndexPage = () => {
-
   const tabsContent = [
         {
           title: '1. Obtención de información',
           content: (
                 <ContentAndSidebar
+                    key='content1'
                     sidebarContent={<p>It's information content here</p>}>
                   <p>A first 3D Scene here</p>
                 </ContentAndSidebar>
@@ -22,6 +23,7 @@ const IndexPage = () => {
           title: '2. Arquitectura de la base de datos',
           content: (
                 <ContentAndSidebar
+                      key='content2'
                       sidebarContent={<p>It's information content here</p>}>
                   <p>A second 3D Scene here</p>
                 </ContentAndSidebar>
@@ -38,10 +40,12 @@ const IndexPage = () => {
           </div>
       </div>
 
-      <h1 className='mainTitle'>Sistema de Business Intelligence para la selección de herramientas de proyecto</h1>
+      <h1 className='mainTitle'>
+        Sistema de Business Intelligence para la selección de herramientas de proyecto
+      </h1>
 
       <div className='animationDiv'>
-        <p>A 3D animation goes here</p>
+        <MainAnimation>dasda</MainAnimation>
       </div>
 
       <Tabs allContent={tabsContent}/>
