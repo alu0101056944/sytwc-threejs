@@ -22,22 +22,23 @@ function setupScene() {
   const axes = new three.AxesHelper(20);
   scene.add(axes);
 
-  const spotLight = new three.SpotLight(0xffffff);
-  spotLight.position.set(0, 5, 0);
+  const spotLight = new three.SpotLight(0xFFFFFF);
+  spotLight.position.set(0, 15, 0);
   spotLight.angle = Math.PI / 5;
   spotLight.castShadow = true;
   spotLight.intensity = 1000;
   spotLight.distance = 0;
   spotLight.penumbra = 0.2;
   spotLight.shadow.mapSize = new three.Vector2(1024, 1024);
+  scene.add(spotLight);
 
-  const ambientLight = new three.AmbientLight(0x404040);
-  scene.add(ambientLight);
+  // const ambientLight = new three.AmbientLight(0xffffff);
+  // scene.add(ambientLight);
 
   var planeGeometry=new three.PlaneGeometry(60,20);
   var planeMaterial=new three.MeshLambertMaterial({
       color:0xffffff,
-
+      castShadow: true
   });
   var plane=new three.Mesh(planeGeometry,planeMaterial);
   plane.rotation.x=-0.5*Math.PI;
