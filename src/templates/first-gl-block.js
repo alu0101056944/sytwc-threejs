@@ -1,9 +1,12 @@
 import * as React from 'react';
 
 import ContentAndSidebar from './content-and-sidebar';
+
 import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+import { fetchInnerHTML } from '../../static/fetch_innerhtml';
+import { modelInnerHTML } from '../../static/model_innerhtml';
 
 function setupScene() {
   const VIEWPORT_WIDTH = 500;
@@ -17,9 +20,6 @@ function setupScene() {
   renderer.setClearColor(new three.Color(0x232323));
   renderer.setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
   renderer.shadowMap.enabled = true;
-
-  const controls = new OrbitControls( camera, renderer.domElement );
-  controls.update();
 
   const ambientLight = new three.AmbientLight(0x373737);
   scene.add(ambientLight);
@@ -38,7 +38,6 @@ function setupScene() {
 
             const centerCube =
                   gltf.scene.getObjectByName('Cube007');
-            console.log(gltf.scene);
             const spotLight = new three.SpotLight(0xFFFFFF);
             spotLight.position.set(4, 4, 0);
             spotLight.angle = Math.PI / 4.5;
@@ -46,24 +45,16 @@ function setupScene() {
             spotLight.castShadow = true;
             spotLight.shadow.bias = -0.0005;
             scene.add(spotLight);
-            // const helper = new three.SpotLightHelper( spotLight );
-            // scene.add( helper );
 
             camera.rotation.z = Math.PI / 2;
             camera.position.set(7.8, 5, 0);
             const center = new three.Vector3(scene.position.x,
                   scene.position.y + 4, scene.position.z);
             camera.lookAt(center);
+
             const mixer = new three.AnimationMixer(gltf.scene);
             gltf.animations.forEach(clip => mixer.clipAction(clip).play());
             const clock = new three.Clock();
-            animate();
-            async function animate() {
-              requestAnimationFrame(animate);
-              var delta = clock.getDelta();
-              if (mixer) mixer.update(delta);
-              renderer.render(scene, camera);
-            }
 
             // clear container first
             const container = document.querySelector('.glBlock');
@@ -74,9 +65,30 @@ function setupScene() {
             }
             container.appendChild(renderer.domElement);
 
-            updateColorOnMouseHover(scene, camera, renderer);
+            const modelCube = scene.children[1].getObjectByName('Model_cube');
+            modelCube.scale.set(0.9, 0.9, 0.9);
+            const fetchCube = scene.children[1].getObjectByName('Fetch_cube');
+            fetchCube.scale.set(0.9, 0.9, 0.9)
 
-            renderer.render(scene, camera);
+            let mousePosition = new three.Vector2();
+            window.addEventListener('pointermove', (event) => {
+              const rect = renderer.domElement.getBoundingClientRect();
+              mousePosition.x =
+                  ((event.clientX - rect.left) / (rect.right - rect.left)) * 2 - 1;
+              mousePosition.y =
+                  - ((event.clientY - rect.top) / (rect.bottom - rect.top)) * 2 + 1;
+            });
+
+            function gameloop() {
+              const delta = clock.getDelta();
+              if (mixer) {
+                mixer.update(delta);
+              }
+              update(scene, camera, mousePosition);
+              renderer.render(scene, camera);
+              requestAnimationFrame(gameloop);
+            }
+            gameloop();
           },
           undefined,
           (error) => reject(error)
@@ -84,58 +96,50 @@ function setupScene() {
       });
 }
 
-function updateColorOnMouseHover(scene, camera, renderer) {
-  const currentColorAndOldColorPerId = {};
-
-  scene.traverse(object => {
-        if (object.material) {
-          const color = object.material.color;
-          if (color) {
-            currentColorAndOldColorPerId[object.id] = {
-              currentColor: object.material.color,
-              oldColor: { r: color.r, g: color.g, b: color.b } 
-            }
-          }
-        }
-      });
-
-  let mousePosition = new three.Vector2();
+function update(scene, camera, mousePosition) {
+  document.body.style.cursor = "auto";
+  const fetchCube = scene.children[1].getObjectByName('Fetch_cube');
+  fetchCube.scale.set(0.9, 0.9, 0.9);
+  const modelCube = scene.children[1].getObjectByName('Model_cube');
+  modelCube.scale.set(0.9, 0.9, 0.9);
 
   const raycaster = new three.Raycaster();
-  function changeColorOnMouseOver() {
-    raycaster.setFromCamera(mousePosition, camera);
-    const intersects = raycaster.intersectObjects(scene.children);
-    for (let i = 0; i < intersects.length; i++) {
-      const color = intersects[i].object.material.color;
-      if (color) {
-        color.set(color.r + 0.2, color.g + 0.2, color.b + 0.2);
-      }
-    }
-
-    renderer.render(scene, camera);
-
-    for (let i = 0; i < intersects.length; i++) {
-      const intersectedColors =
-          currentColorAndOldColorPerId[intersects[i].object.id];
-      if (intersectedColors) {
-        intersectedColors.currentColor
-            .set(intersectedColors.oldColor.r,
-                intersectedColors.oldColor.g,
-                intersectedColors.oldColor.b);
-      }
+  raycaster.setFromCamera(mousePosition, camera);
+  const intersects = raycaster.intersectObjects(scene.children);
+  for (let i = 0; i < intersects.length; i++) {
+    if (intersects[i].object.id === fetchCube.id) {
+      fetchCube.scale.set(0.7, 0.7, 0.7);
+      window.addEventListener('click', () => {
+            const sidebarDOMNode = document.querySelector('.sidebar');
+            if (sidebarDOMNode) {
+              for (const child of sidebarDOMNode.children) {
+                child.remove();
+              }
+              const fetchTabContainer = document.createElement('div');
+              fetchTabContainer.style.color = 'white';
+              fetchTabContainer.innerHTML = fetchInnerHTML;
+              sidebarDOMNode.append(fetchTabContainer);
+            }
+          }, { once: true });
+      document.body.style.cursor = "pointer";
+    } else if (intersects[i].object.id === modelCube.id) {
+      modelCube.scale.set(0.7, 0.7, 0.7);
+      window.addEventListener('click', () => {
+            const sidebarDOMNode = document.querySelector('.sidebar');
+            if (sidebarDOMNode) {
+              for (const child of sidebarDOMNode.children) {
+                child.remove();
+              }
+              const fetchTabContainer = document.createElement('div');
+              fetchTabContainer.style.color = 'white';
+              fetchTabContainer.innerHTML = modelInnerHTML;
+              sidebarDOMNode.append(fetchTabContainer);
+            }
+          }, { once: true });
+      document.body.style.cursor = "pointer";
     }
   }
-  
-  window.addEventListener('pointermove', (event) => {
-        const rect = renderer.domElement.getBoundingClientRect();
-        mousePosition.x =
-            ((event.clientX - rect.left) / (rect.right - rect.left)) * 2 - 1;
-        mousePosition.y =
-            - ((event.clientY - rect.top) / (rect.bottom - rect.top)) * 2 + 1;
-        changeColorOnMouseOver();
-      });
 }
-
 
 const FirstGLBlock = () => {
   React.useEffect(setupScene, []);
@@ -148,7 +152,7 @@ const FirstGLBlock = () => {
         {/* The canvas is attached here */}
       </div>
     </ContentAndSidebar>
-  )
+  );
 }
 
 export default FirstGLBlock
