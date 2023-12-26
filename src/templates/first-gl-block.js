@@ -4,7 +4,6 @@ import ContentAndSidebar from './content-and-sidebar';
 import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-
 function setupScene() {
   const VIEWPORT_WIDTH = 500;
   const VIEWPORT_HEIGHT = 400;
@@ -17,55 +16,49 @@ function setupScene() {
   renderer.setClearColor(new three.Color(0x232323));
   renderer.setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = three.PCFSoftShadowMap
-
-  // const controls = new OrbitControls(camera, renderer.domElement);
-  // controls.update();
-
-  // const axes = new three.AxesHelper(20);
-  // scene.add(axes);
+  // renderer.shadowMap.type = three.PCFSoftShadowMap;
 
   const spotLight = new three.SpotLight(0xFFFFFF);
-  spotLight.position.set(0, 10, 2);
+  spotLight.position.set(2, 9, 0);
   spotLight.angle = Math.PI / 3;
   spotLight.castShadow = true;
-  spotLight.intensity = 200;
-  spotLight.distance = 15;
-  spotLight.penumbra = 0.2;
-  spotLight.shadow.mapSize = new three.Vector2(1024, 1024);
+  spotLight.intensity = 20;
+  // spotLight.distance = 15;
+  // spotLight.penumbra = 0.2;
+  // spotLight.shadow.mapSize = new three.Vector2(1024, 1024);
   scene.add(spotLight);
 
-  const ambientLight = new three.AmbientLight(0x353535);
-  scene.add(ambientLight);
+  const spotLight2 = new three.SpotLight(0xFFFFFF);
+  spotLight2.position.set(4, 3, 0);
+  spotLight2.angle = Math.PI / 2;
+  spotLight2.castShadow = true;
+  spotLight2.intensity = 20;
+  // spotLight2.distance = 15;
+  // spotLight2.penumbra = 0.2;
+  // spotLight2.shadow.mapSize = new three.Vector2(1024, 1024);
+  scene.add(spotLight2);
 
-  const planeGeometry = new three.PlaneGeometry(60, 20);
-  const planeMaterial = new three.MeshLambertMaterial({
-          color:0x353535
-      });
-  const plane = new three.Mesh(planeGeometry,planeMaterial);
-  plane.position.set(0,0,0);
-  scene.add(plane);
+  // const ambientLight = new three.AmbientLight(0x353535);
+  // scene.add(ambientLight);
 
   const loader = new GLTFLoader();
   new Promise((resolve, reject) => {
       loader.load(
-          '/torus_final.glb',
+          '/animation1.glb',
           gltf => {
             resolve();
-            gltf.scene.scale.multiplyScalar(8);
-            const torus = gltf.scene.getObjectByName('TorusFinalWithText');
-            torus.position.set(0, 5, 0);
-            torus.castShadow = true;
-            torus.receiveShadow = true;
-            spotLight.target = torus;
-            scene.add(gltf.scene.children[0]);
-            camera.position.set(0, 8.2, 0);
-            camera.lookAt(torus.position);
-            // camera.rotation.x = Math.PI / 2;
-            // camera.rotation.y = Math.PI / 2;
-            camera.rotation.z = Math.PI / 2;
+            scene.add(gltf.scene);
+            gltf.scene.traverse(object => {
+                  object.castShadow = true;
+                  object.receiveShadow = true;
+                });
 
-            const mixer = new three.AnimationMixer(torus);
+            camera.rotation.z = Math.PI / 2;
+            camera.position.set(8, 5, 0);
+            const center = new three.Vector3(scene.position.x,
+                  scene.position.y + 4, scene.position.z);
+            camera.lookAt(center);
+            const mixer = new three.AnimationMixer(gltf.scene);
             gltf.animations.forEach(clip => mixer.clipAction(clip).play());
             const clock = new three.Clock();
             animate();
@@ -77,7 +70,7 @@ function setupScene() {
             }
 
             // clear container first
-            const container = document.querySelector('.mainAnimDiv');
+            const container = document.querySelector('.glBlock');
             if (container.children.length > 0) {
               for (const child of container.children) {
                 child.remove();
@@ -85,7 +78,7 @@ function setupScene() {
             }
             container.appendChild(renderer.domElement);
 
-            // updateColorOnMouseHover(scene, camera, renderer);
+            updateColorOnMouseHover(scene, camera, renderer);
 
             renderer.render(scene, camera);
           },
