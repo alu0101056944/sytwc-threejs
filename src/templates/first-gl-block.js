@@ -3,7 +3,6 @@ import * as React from 'react';
 import ContentAndSidebar from './content-and-sidebar';
 import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 function setupScene() {
   const VIEWPORT_WIDTH = 500;
@@ -17,9 +16,6 @@ function setupScene() {
   renderer.setClearColor(new three.Color(0x232323));
   renderer.setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
   renderer.shadowMap.enabled = true;
-
-  const controls = new OrbitControls( camera, renderer.domElement );
-  controls.update();
 
   const ambientLight = new three.AmbientLight(0x373737);
   scene.add(ambientLight);
@@ -38,7 +34,6 @@ function setupScene() {
 
             const centerCube =
                   gltf.scene.getObjectByName('Cube007');
-            console.log(gltf.scene);
             const spotLight = new three.SpotLight(0xFFFFFF);
             spotLight.position.set(4, 4, 0);
             spotLight.angle = Math.PI / 4.5;
@@ -46,8 +41,6 @@ function setupScene() {
             spotLight.castShadow = true;
             spotLight.shadow.bias = -0.0005;
             scene.add(spotLight);
-            // const helper = new three.SpotLightHelper( spotLight );
-            // scene.add( helper );
 
             camera.rotation.z = Math.PI / 2;
             camera.position.set(7.8, 5, 0);

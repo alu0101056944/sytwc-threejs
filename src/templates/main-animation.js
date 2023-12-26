@@ -4,8 +4,8 @@ import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 function setupScene() {
-  const VIEWPORT_WIDTH = 500;
-  const VIEWPORT_HEIGHT = 400;
+  const VIEWPORT_WIDTH = 250;
+  const VIEWPORT_HEIGHT = 200;
 
   const scene = new three.Scene();
   const camera = new three.PerspectiveCamera(45, VIEWPORT_WIDTH / VIEWPORT_HEIGHT,
