@@ -4,7 +4,7 @@ import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-async function setupScene() {
+function setupScene() {
   const VIEWPORT_WIDTH = 500;
   const VIEWPORT_HEIGHT = 400;
 
@@ -15,6 +15,8 @@ async function setupScene() {
   const renderer = new three.WebGLRenderer();
   renderer.setClearColor(new three.Color(0x232323));
   renderer.setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = three.PCFSoftShadowMap
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.update();
@@ -23,7 +25,7 @@ async function setupScene() {
   scene.add(axes);
 
   const spotLight = new three.SpotLight(0xFFFFFF);
-  spotLight.position.set(0, 15, 0);
+  spotLight.position.set(0, 15, 15);
   spotLight.angle = Math.PI / 5;
   spotLight.castShadow = true;
   spotLight.intensity = 1000;
@@ -40,43 +42,45 @@ async function setupScene() {
           color:0x353535
       });
   const plane = new three.Mesh(planeGeometry,planeMaterial);
-  plane.rotation.x = 2.0 + Math.PI;
   plane.position.set(0,0,0);
   scene.add(plane);
 
-  camera.position.set(0, 10, 5);
-  camera.lookAt(plane.position);
-
   const loader = new GLTFLoader();
-  await new Promise((resolve, reject) => {
+  new Promise((resolve, reject) => {
       loader.load(
           '/another_test_with_gradient.glb',
           gltf => {
             resolve();
             gltf.scene.scale.multiplyScalar(8);
             const torus = gltf.scene.getObjectByName('TorusFinalWithText');
-            torus.rotation.z = -0.3*Math.PI;
-            torus.rotation.x = 1.0*Math.PI;
+            torus.rotation.z = Math.PI / 2;
+            torus.rotation.x = 2 * Math.PI;
+            torus.rotation.y = Math.PI / 2;
             torus.position.set(0, 5, 0);
+            torus.castShadow = true;
+            torus.receiveShadow = true;
+            spotLight.target = torus;
             scene.add(gltf.scene.children[0]);
+            camera.position.set(0, 5, 5);
+            camera.lookAt(torus.position);
+
+            // clear container first
+            const container = document.querySelector('.mainAnimDiv');
+            if (container.children.length > 0) {
+              for (const child of container.children) {
+                child.remove();
+              }
+            }
+            container.appendChild(renderer.domElement);
+
+            updateColorOnMouseHover(scene, camera, renderer);
+
+            renderer.render(scene, camera);
           },
           undefined,
           (error) => reject(error)
         );
       });
-
-  // clear container first
-  const container = document.querySelector('.mainAnimDiv');
-  if (container.children.length > 0) {
-    for (const child of container.children) {
-      child.remove();
-    }
-  }
-  container.appendChild(renderer.domElement);
-
-  updateColorOnMouseHover(scene, camera, renderer);
-
-  renderer.render(scene, camera);
 }
 
 function updateColorOnMouseHover(scene, camera, renderer) {
