@@ -147,7 +147,7 @@ const FirstGLBlock = () => {
   return (
     <ContentAndSidebar
         key='content1'
-        sidebarContent={<p>It's information content here</p>}>
+        sidebarContent={<p style={{color: 'white'}}>Click any box to view it's information.</p>}>
       <div className='glBlock'>
         {/* The canvas is attached here */}
       </div>

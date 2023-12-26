@@ -15,7 +15,7 @@ const IndexPage = () => {
         },
         {
           title: '2. Arquitectura de la base de datos',
-          content: (<p key='ap2'>something goes here</p>
+          content: (<p key='ap2' style={{color: 'white'}}>Click any object to view the content.</p>
                 // <ContentAndSidebar
                 //       key='content2'
                 //       sidebarContent={<p>It's information content here</p>}>
