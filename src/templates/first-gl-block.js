@@ -1,8 +1,12 @@
 import * as React from 'react';
 
 import ContentAndSidebar from './content-and-sidebar';
+
 import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+import { fetchInnerHTML } from '../../static/fetch_innerhtml';
+import { modelInnerHTML } from '../../static/model_innerhtml';
 
 function setupScene() {
   const VIEWPORT_WIDTH = 500;
@@ -93,6 +97,7 @@ function setupScene() {
 }
 
 function update(scene, camera, mousePosition) {
+  document.body.style.cursor = "auto";
   const fetchCube = scene.children[1].getObjectByName('Fetch_cube');
   fetchCube.scale.set(0.9, 0.9, 0.9);
   const modelCube = scene.children[1].getObjectByName('Model_cube');
@@ -104,8 +109,34 @@ function update(scene, camera, mousePosition) {
   for (let i = 0; i < intersects.length; i++) {
     if (intersects[i].object.id === fetchCube.id) {
       fetchCube.scale.set(0.7, 0.7, 0.7);
+      window.addEventListener('click', () => {
+            const sidebarDOMNode = document.querySelector('.sidebar');
+            if (sidebarDOMNode) {
+              for (const child of sidebarDOMNode.children) {
+                child.remove();
+              }
+              const fetchTabContainer = document.createElement('div');
+              fetchTabContainer.style.color = 'white';
+              fetchTabContainer.innerHTML = fetchInnerHTML;
+              sidebarDOMNode.append(fetchTabContainer);
+            }
+          }, { once: true });
+      document.body.style.cursor = "pointer";
     } else if (intersects[i].object.id === modelCube.id) {
       modelCube.scale.set(0.7, 0.7, 0.7);
+      window.addEventListener('click', () => {
+            const sidebarDOMNode = document.querySelector('.sidebar');
+            if (sidebarDOMNode) {
+              for (const child of sidebarDOMNode.children) {
+                child.remove();
+              }
+              const fetchTabContainer = document.createElement('div');
+              fetchTabContainer.style.color = 'white';
+              fetchTabContainer.innerHTML = modelInnerHTML;
+              sidebarDOMNode.append(fetchTabContainer);
+            }
+          }, { once: true });
+      document.body.style.cursor = "pointer";
     }
   }
 }
@@ -121,7 +152,7 @@ const FirstGLBlock = () => {
         {/* The canvas is attached here */}
       </div>
     </ContentAndSidebar>
-  )
+  );
 }
 
 export default FirstGLBlock
