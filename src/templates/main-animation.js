@@ -32,47 +32,30 @@ function setupScene() {
   spotLight.shadow.mapSize = new three.Vector2(1024, 1024);
   scene.add(spotLight);
 
-  // const ambientLight = new three.AmbientLight(0xffffff);
-  // scene.add(ambientLight);
+  const ambientLight = new three.AmbientLight(0x353535);
+  scene.add(ambientLight);
 
-  var planeGeometry=new three.PlaneGeometry(60,20);
-  var planeMaterial=new three.MeshLambertMaterial({
-      color:0xffffff,
-      castShadow: true
-  });
-  var plane=new three.Mesh(planeGeometry,planeMaterial);
-  plane.rotation.x=-0.5*Math.PI;
-  plane.position.set(0,0,0);
-  plane.receiveShadow=true;
-  scene.add(plane);
-
-  const sphereGeometry = new three.SphereGeometry(4, 20, 20);
-  const sphereMaterial = new three.MeshBasicMaterial({
-          color:0x0077ff,
-          wireframe:true
+  const planeGeometry = new three.PlaneGeometry(60, 20);
+  const planeMaterial = new three.MeshLambertMaterial({
+          color:0x353535
       });
-  const sphere = new three.Mesh(sphereGeometry, sphereMaterial);
-  sphere.position.set(0, 0, 0);
-  scene.add(sphere);
-  
-  var cubeGeometry=new three.BoxGeometry(4,4,4);
-  var cubeMaterial=new three.MeshLambertMaterial({
-      color:0x00FF00,
-      wireframe:false
-  });
-  var cube=new three.Mesh(cubeGeometry,cubeMaterial);
-  cube.position.set(-4,3,0);
-  cube.castShadow=true;
-  // spotLight.target=cube;
-  scene.add(cube);
+  const plane = new three.Mesh(planeGeometry,planeMaterial);
+  plane.rotation.x = -0.8*Math.PI;
+  plane.position.set(0,0,0);
+  scene.add(plane);
 
   camera.position.set(10, 30, 5);
   camera.lookAt(scene.position);
 
   const loader = new GLTFLoader();
   loader.load(
-        '/Soldier.glb',
+        '/loading_model.glb',
         (gltf) => {
+          gltf.scene.scale.multiplyScalar(8);
+          const torus = gltf.scene.getObjectByName('TorusFinalWithText');
+          torus.rotation.z = 80;
+          torus.rotation.x = 40;
+          console.log(torus);
           scene.add(gltf.scene.children[0]);
         },
         undefined,
@@ -94,7 +77,21 @@ function setupScene() {
 }
 
 function updateColorOnMouseHover(scene, camera, renderer) {
-  const colorPerObjectId = {};
+  const currentColorAndOldColorPerId = {};
+
+  console.log(scene.children);
+  scene.traverse(object => {
+        if (object.material) {
+          const color = object.material.color;
+          if (color) {
+            currentColorAndOldColorPerId[object.id] = {
+              currentColor: object.material.color,
+              oldColor: { r: color.r, g: color.g, b: color.b } 
+            }
+          }
+        }
+      });
+
   let mousePosition = new three.Vector2();
 
   const raycaster = new three.Raycaster();
@@ -102,24 +99,22 @@ function updateColorOnMouseHover(scene, camera, renderer) {
     raycaster.setFromCamera(mousePosition, camera);
     const intersects = raycaster.intersectObjects(scene.children);
     for (let i = 0; i < intersects.length; i++) {
-      const object = intersects[i].object;
-      const color = object.material.color;
+      const color = intersects[i].object.material.color;
       if (color) {
-        colorPerObjectId[object.id] =
-            { r: color.r, g: color.g, b: color.b } ?? null;
-        color.set(0xff0000);
+        color.set(color.r + 0.2, color.g + 0.2, color.b + 0.2);
       }
     }
 
     renderer.render(scene, camera);
 
-    // back to original colors after render
     for (let i = 0; i < intersects.length; i++) {
-      const object = intersects[i].object;
-      const color = object.material.color;
-      if (color) {
-        color.set(colorPerObjectId[object.id].r, colorPerObjectId[object.id].g,
-                colorPerObjectId[object.id].b);
+      const intersectedColors =
+          currentColorAndOldColorPerId[intersects[i].object.id];
+      if (intersectedColors) {
+        intersectedColors.currentColor
+            .set(intersectedColors.oldColor.r,
+                intersectedColors.oldColor.g,
+                intersectedColors.oldColor.b);
       }
     }
   }
