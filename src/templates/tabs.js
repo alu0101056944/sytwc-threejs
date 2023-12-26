@@ -7,19 +7,23 @@ import React from 'react';
  */
 const Tabs = ({allContent = [{title: 'default'}]}) => {
   const [nameOfActiveTab, setNameOfActiveTab] = useState(allContent[0].title);
+  Tabs.buttonAmount ??= 0; // for getting unique key
 
   return (
     <div className='tabsContainer'>
       <nav>
         {
-          allContent.map((content, index) => (
-                <button
-                    className={nameOfActiveTab === content.title ? 'activeTab' : 'inactiveTab'}
-                    key={`${content.title}${index}`}
-                    onClick={() => setNameOfActiveTab(content.title)}>
-                  {content.title}
-                </button>
-              ))
+          allContent.map((content, index) => {
+                Tabs.buttonAmount++;
+                console.log(Tabs.buttonAmount);
+                console.log(`${content.title}${index}${Tabs.buttonAmount}`);
+                return <button
+                        className={nameOfActiveTab === content.title ? 'activeTab' : 'inactiveTab'}
+                        key={`${content.title}${index}${Tabs.buttonAmount}`}
+                        onClick={() => setNameOfActiveTab(content.title)}>
+                      {content.title}
+                    </button>
+              })
         }
       </nav>
       <main>

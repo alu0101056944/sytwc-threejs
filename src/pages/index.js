@@ -1,32 +1,26 @@
 import * as React from 'react';
 
 import Tabs from '../templates/tabs';
-import ContentAndSidebar from '../templates/content-and-sidebar';
 
 import '../styles/main.scss';
 import { StaticImage } from 'gatsby-plugin-image';
 import MainAnimation from '../templates/main-animation';
+import FirstGLBlock from '../templates/first-gl-block';
 
 const IndexPage = () => {
   const tabsContent = [
         {
           title: '1. Obtención de información',
-          content: (
-                <ContentAndSidebar
-                    key='content1'
-                    sidebarContent={<p>It's information content here</p>}>
-                  <p>A first 3D Scene here</p>
-                </ContentAndSidebar>
-              )
+          content: <FirstGLBlock key='ap1'/>
         },
         {
           title: '2. Arquitectura de la base de datos',
-          content: (
-                <ContentAndSidebar
-                      key='content2'
-                      sidebarContent={<p>It's information content here</p>}>
-                  <p>A second 3D Scene here</p>
-                </ContentAndSidebar>
+          content: (<p key='ap2'>something goes here</p>
+                // <ContentAndSidebar
+                //       key='content2'
+                //       sidebarContent={<p>It's information content here</p>}>
+                //   <p>A second 3D Scene here</p>
+                // </ContentAndSidebar>
               )
         },
       ];
