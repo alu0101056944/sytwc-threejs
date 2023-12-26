@@ -3,6 +3,7 @@ import * as React from 'react';
 import ContentAndSidebar from './content-and-sidebar';
 import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 function setupScene() {
   const VIEWPORT_WIDTH = 500;
@@ -16,30 +17,12 @@ function setupScene() {
   renderer.setClearColor(new three.Color(0x232323));
   renderer.setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
   renderer.shadowMap.enabled = true;
-  // renderer.shadowMap.type = three.PCFSoftShadowMap;
 
-  const spotLight = new three.SpotLight(0xFFFFFF);
-  spotLight.position.set(2, 9, 0);
-  spotLight.angle = Math.PI / 3;
-  spotLight.castShadow = true;
-  spotLight.intensity = 20;
-  // spotLight.distance = 15;
-  // spotLight.penumbra = 0.2;
-  // spotLight.shadow.mapSize = new three.Vector2(1024, 1024);
-  scene.add(spotLight);
+  const controls = new OrbitControls( camera, renderer.domElement );
+  controls.update();
 
-  const spotLight2 = new three.SpotLight(0xFFFFFF);
-  spotLight2.position.set(4, 3, 0);
-  spotLight2.angle = Math.PI / 2;
-  spotLight2.castShadow = true;
-  spotLight2.intensity = 20;
-  // spotLight2.distance = 15;
-  // spotLight2.penumbra = 0.2;
-  // spotLight2.shadow.mapSize = new three.Vector2(1024, 1024);
-  scene.add(spotLight2);
-
-  // const ambientLight = new three.AmbientLight(0x353535);
-  // scene.add(ambientLight);
+  const ambientLight = new three.AmbientLight(0x353535);
+  scene.add(ambientLight);
 
   const loader = new GLTFLoader();
   new Promise((resolve, reject) => {
@@ -53,8 +36,20 @@ function setupScene() {
                   object.receiveShadow = true;
                 });
 
+            const centerCube =
+                  gltf.scene.getObjectByName('Cube007');
+            console.log(gltf.scene);
+            const spotLight = new three.SpotLight(0xFFFFFF);
+            spotLight.position.set(4, 4, 0);
+            spotLight.angle = Math.PI / 4.5;
+            spotLight.target = centerCube;
+            spotLight.castShadow = true;
+            scene.add(spotLight);
+            const helper = new three.SpotLightHelper( spotLight );
+            scene.add( helper );
+
             camera.rotation.z = Math.PI / 2;
-            camera.position.set(8, 5, 0);
+            camera.position.set(7.8, 5, 0);
             const center = new three.Vector3(scene.position.x,
                   scene.position.y + 4, scene.position.z);
             camera.lookAt(center);

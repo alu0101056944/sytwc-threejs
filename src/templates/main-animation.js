@@ -12,7 +12,7 @@ function setupScene() {
       0.1, 1000);
 
   const renderer = new three.WebGLRenderer();
-  renderer.setClearColor(new three.Color(0x232323));
+  renderer.setClearColor(new three.Color(0x191919));
   renderer.setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = three.PCFSoftShadowMap
