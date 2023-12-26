@@ -4,7 +4,7 @@ import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-function setupScene() {
+async function setupScene() {
   const VIEWPORT_WIDTH = 500;
   const VIEWPORT_HEIGHT = 400;
 
@@ -40,27 +40,30 @@ function setupScene() {
           color:0x353535
       });
   const plane = new three.Mesh(planeGeometry,planeMaterial);
-  plane.rotation.x = -0.8*Math.PI;
+  plane.rotation.x = 2.0 + Math.PI;
   plane.position.set(0,0,0);
   scene.add(plane);
 
-  camera.position.set(10, 30, 5);
-  camera.lookAt(scene.position);
+  camera.position.set(0, 10, 5);
+  camera.lookAt(plane.position);
 
   const loader = new GLTFLoader();
-  loader.load(
-        '/loading_model.glb',
-        (gltf) => {
-          gltf.scene.scale.multiplyScalar(8);
-          const torus = gltf.scene.getObjectByName('TorusFinalWithText');
-          torus.rotation.z = 80;
-          torus.rotation.x = 40;
-          console.log(torus);
-          scene.add(gltf.scene.children[0]);
-        },
-        undefined,
-        (error) => console.error(error)
-      );
+  await new Promise((resolve, reject) => {
+      loader.load(
+          '/another_test_with_gradient.glb',
+          gltf => {
+            resolve();
+            gltf.scene.scale.multiplyScalar(8);
+            const torus = gltf.scene.getObjectByName('TorusFinalWithText');
+            torus.rotation.z = -0.3*Math.PI;
+            torus.rotation.x = 1.0*Math.PI;
+            torus.position.set(0, 5, 0);
+            scene.add(gltf.scene.children[0]);
+          },
+          undefined,
+          (error) => reject(error)
+        );
+      });
 
   // clear container first
   const container = document.querySelector('.mainAnimDiv');
@@ -79,7 +82,6 @@ function setupScene() {
 function updateColorOnMouseHover(scene, camera, renderer) {
   const currentColorAndOldColorPerId = {};
 
-  console.log(scene.children);
   scene.traverse(object => {
         if (object.material) {
           const color = object.material.color;
