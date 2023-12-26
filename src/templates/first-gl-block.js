@@ -13,7 +13,7 @@ function setupScene() {
   const camera = new three.PerspectiveCamera(45, VIEWPORT_WIDTH / VIEWPORT_HEIGHT,
       0.1, 1000);
 
-  const renderer = new three.WebGLRenderer();
+  const renderer = new three.WebGLRenderer({ antialias: true });
   renderer.setClearColor(new three.Color(0x232323));
   renderer.setSize(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
   renderer.shadowMap.enabled = true;
@@ -21,13 +21,13 @@ function setupScene() {
   const controls = new OrbitControls( camera, renderer.domElement );
   controls.update();
 
-  const ambientLight = new three.AmbientLight(0x353535);
+  const ambientLight = new three.AmbientLight(0x373737);
   scene.add(ambientLight);
 
   const loader = new GLTFLoader();
   new Promise((resolve, reject) => {
       loader.load(
-          '/animation1.glb',
+          '/animation1_emission.glb',
           gltf => {
             resolve();
             scene.add(gltf.scene);
@@ -44,9 +44,10 @@ function setupScene() {
             spotLight.angle = Math.PI / 4.5;
             spotLight.target = centerCube;
             spotLight.castShadow = true;
+            spotLight.shadow.bias = -0.0005;
             scene.add(spotLight);
-            const helper = new three.SpotLightHelper( spotLight );
-            scene.add( helper );
+            // const helper = new three.SpotLightHelper( spotLight );
+            // scene.add( helper );
 
             camera.rotation.z = Math.PI / 2;
             camera.position.set(7.8, 5, 0);
