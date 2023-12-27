@@ -1,6 +1,6 @@
 {
   "name": "sytwc-threejs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Presentation webpage for alu0101056944/gcceproject",
   "main": "index.js",
   "scripts": {
