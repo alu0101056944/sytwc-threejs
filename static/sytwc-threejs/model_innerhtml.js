@@ -2,7 +2,7 @@ export const modelInnerHTML = `
 <div>
   <h1>Descargas</h1>
   <a href="/sytwc-threejs/model_box.glb">Descargar el modelo model_box</a>
-  <a href="/sytwc-threejs/animation1_emission.glb"><a href="/animation1_emission.glb">Descargar la escena entera</a></a>
+  <a href="/sytwc-threejs/animation1_emission.glb">Descargar la escena entera</a>
   <hr>
   <h1>Estructura de los Datos</h1>
 
