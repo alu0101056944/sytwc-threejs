@@ -41,7 +41,7 @@ function setupScene() {
   const loader = new GLTFLoader();
   new Promise((resolve, reject) => {
       loader.load(
-          '/torus_final.glb',
+          '/sytwc-threejs/torus_final.glb',
           gltf => {
             resolve();
             const torus = gltf.scene.getObjectByName('TorusFinalWithText');
