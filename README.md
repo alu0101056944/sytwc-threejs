@@ -8,6 +8,16 @@ This is part of *Sistemas y Tecnologías Web: Cliente* subject's `ThreeJS` assig
   - Have an animated 3D Model on at least one scene.
   - Make a report explaining the technical aspects and functionality. It is also asked for it to be in english language.
 
+## Installation
+
+To serve use:
+
+`npm run build`
+
+And then:
+
+`npm run serve`
+
 ## Screenshot of webpage
 
 ![screenshot of the finished webpage](./docs/final_state.png)
