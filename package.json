@@ -8,7 +8,8 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "deploy": "gh-pages -d public"
   },
   "keywords": [
     "gatsby"
@@ -26,6 +27,7 @@
     "sass": "^1.69.5"
   },
   "dependencies": {
+    "gh-pages": "^6.1.1",
     "three": "^0.160.0"
   }
 }
