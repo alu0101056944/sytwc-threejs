@@ -6,22 +6,17 @@ import '../styles/main.scss';
 import { StaticImage } from 'gatsby-plugin-image';
 import MainAnimation from '../templates/main-animation';
 import FirstGLBlock from '../templates/first-gl-block';
+import SecondGLBlock from '../templates/second-gl-block';
 
 const IndexPage = () => {
   const tabsContent = [
         {
-          title: '1. Obtención de información',
+          title: '1. Obtención de información y modelado',
           content: <FirstGLBlock key='ap1'/>
         },
         {
-          title: '2. Arquitectura de la base de datos',
-          content: (<p key='ap2'>something goes here</p>
-                // <ContentAndSidebar
-                //       key='content2'
-                //       sidebarContent={<p>It's information content here</p>}>
-                //   <p>A second 3D Scene here</p>
-                // </ContentAndSidebar>
-              )
+          title: '2. Key Performance Indicator (KPI)',
+          content: <SecondGLBlock key='ap2'/>
         },
       ];
 

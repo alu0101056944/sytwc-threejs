@@ -1,5 +1,9 @@
 export const modelInnerHTML = `
 <div>
+  <h1>Descargas</h1>
+  <a href="/model_box.glb">Descargar el modelo model_box</a>
+  <a href="/animation1_emission.glb"><a href="/animation1_emission.glb">Descargar la escena entera</a></a>
+  <hr>
   <h1>Estructura de los Datos</h1>
 
   <h2>Dimensiones</h2>
@@ -140,7 +144,9 @@ export const modelInnerHTML = `
   <p>N.º de ofertas de trabajo.</p>
 
   <h3>Market - Date</h3>
-  <p>Facts</p>
+  <p>(...)</p>
+  
+  <h2>Facts</h2>
 
   <h3>Employee - Tool</h3>
   <ul>

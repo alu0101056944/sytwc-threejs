@@ -1,5 +1,9 @@
 export const fetchInnerHTML = `
 <div>
+  <h1>Descargas</h1>
+  <a href="/fetch_box.glb">Descargar el modelo fetch_box</a>
+  <a href="/animation1_emission.glb">Descargar la escena entera</a>
+  <hr>
   <h1>Nivel de experiencia de los empleados con la herramienta/tecnología</h1>
   <ul>
       <li>n.º de personas que la han utilizado</li>
