@@ -27,7 +27,7 @@ function setupScene() {
   const loader = new GLTFLoader();
   new Promise((resolve, reject) => {
       loader.load(
-          '/sytwc-threejs/animation1_emission.glb',
+          '/animation1_emission.glb',
           gltf => {
             resolve();
             scene.add(gltf.scene);

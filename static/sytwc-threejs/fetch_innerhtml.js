@@ -1,8 +1,8 @@
 export const fetchInnerHTML = `
 <div>
   <h1>Descargas</h1>
-  <a href="/sytwc-threejs/fetch_box.glb">Descargar el modelo fetch_box</a>
-  <a href="/sytwc-threejs/animation1_emission.glb">Descargar la escena entera</a>
+  <a href="/fetch_box.glb">Descargar el modelo fetch_box</a>
+  <a href="/animation1_emission.glb">Descargar la escena entera</a>
   <hr>
   <h1>Nivel de experiencia de los empleados con la herramienta/tecnología</h1>
   <ul>

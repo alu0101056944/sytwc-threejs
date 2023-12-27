@@ -30,7 +30,7 @@ function setupScene() {
   const loader = new GLTFLoader();
   new Promise((resolve, reject) => {
       loader.load(
-          '/sytwc-threejs/DamagedHelmet.glb',
+          '/DamagedHelmet.glb',
           gltf => {
             resolve();
             scene.add(gltf.scene);

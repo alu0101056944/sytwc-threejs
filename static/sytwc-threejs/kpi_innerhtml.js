@@ -1,6 +1,6 @@
 export const kpiInnerHTML = `
 <h1>Descargas</h1>
-<a href="/sytwc-threejs/DamagedHelmet.glb">Descargar el modelo de casco.</a> (autor del modelo: KhronosGroup).
+<a href="/DamagedHelmet.glb">Descargar el modelo de casco.</a> (autor del modelo: KhronosGroup).
 <hr>
 <h1>Métricas</h1>
 

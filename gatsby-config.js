@@ -2,7 +2,6 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 module.exports = {
-  pathPrefix: "/sytwc-threejs",
   siteMetadata: {
     title: `GCCEProject Landing Page`,
     siteUrl: `https://www.yourdomain.tld`
