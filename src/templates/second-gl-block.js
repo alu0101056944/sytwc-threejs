@@ -6,7 +6,7 @@ import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-import { kpiInnerHTML } from '../../static/kpi_innerhtml';
+import { kpiInnerHTML } from '../../static/sytwc-threejs/kpi_innerhtml';
 
 function setupScene() {
   const VIEWPORT_WIDTH = 500;
@@ -30,7 +30,7 @@ function setupScene() {
   const loader = new GLTFLoader();
   new Promise((resolve, reject) => {
       loader.load(
-          '/DamagedHelmet.glb',
+          '/sytwc-threejs/DamagedHelmet.glb',
           gltf => {
             resolve();
             scene.add(gltf.scene);

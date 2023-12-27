@@ -5,8 +5,8 @@ import ContentAndSidebar from './content-and-sidebar';
 import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-import { fetchInnerHTML } from '../../static/fetch_innerhtml';
-import { modelInnerHTML } from '../../static/model_innerhtml';
+import { fetchInnerHTML } from '../../static/sytwc-threejs/fetch_innerhtml';
+import { modelInnerHTML } from '../../static/sytwc-threejs/model_innerhtml';
 
 function setupScene() {
   const VIEWPORT_WIDTH = 500;
@@ -27,7 +27,7 @@ function setupScene() {
   const loader = new GLTFLoader();
   new Promise((resolve, reject) => {
       loader.load(
-          '/animation1_emission.glb',
+          '/sytwc-threejs/animation1_emission.glb',
           gltf => {
             resolve();
             scene.add(gltf.scene);
