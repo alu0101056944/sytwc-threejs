@@ -12,9 +12,13 @@ This is part of *Sistemas y Tecnologías Web: Cliente* subject's `ThreeJS` assig
 
 To serve use:
 
+`npm run install`
+
+And
+
 `npm run build`
 
-And then:
+And finally:
 
 `npm run serve`
 
