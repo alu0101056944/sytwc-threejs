@@ -144,7 +144,9 @@ export const modelInnerHTML = `
   <p>N.º de ofertas de trabajo.</p>
 
   <h3>Market - Date</h3>
-  <p>Facts</p>
+  <p>(...)</p>
+  
+  <h2>Facts</h2>
 
   <h3>Employee - Tool</h3>
   <ul>

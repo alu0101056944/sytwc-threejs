@@ -6,6 +6,8 @@ import * as three from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+import { kpiInnerHTML } from '../../static/kpi_innerhtml';
+
 function setupScene() {
   const VIEWPORT_WIDTH = 500;
   const VIEWPORT_HEIGHT = 400;
@@ -63,13 +65,19 @@ function setupScene() {
 const SecondGLBlock = () => {
   React.useEffect(setupScene, []);
 
+  React.useEffect(() => {
+        const sidebarContentDiv =
+            document.querySelector('.sidebarContent2');
+        sidebarContentDiv.innerHTML = kpiInnerHTML;
+      }, []);
+
   return (
     <ContentAndSidebar
         key='content2'
         sidebarContent={
-            <p style={{color: 'white'}}>
-              
-            </p>
+            <div className='sidebarContent2'>
+              {/* The content is inserted here by JS */}
+            </div>
           }>
       <div className='glBlock2'>
         {/* The canvas is attached here */}

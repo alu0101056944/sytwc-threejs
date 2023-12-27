@@ -102,6 +102,8 @@ function update(scene, camera, mousePosition) {
   fetchCube.scale.set(0.9, 0.9, 0.9);
   const modelCube = scene.children[1].getObjectByName('Model_cube');
   modelCube.scale.set(0.9, 0.9, 0.9);
+  window.removeEventListener('click', setFetchContent);
+  window.removeEventListener('click', setModelContent);
 
   const raycaster = new three.Raycaster();
   raycaster.setFromCamera(mousePosition, camera);
@@ -109,35 +111,41 @@ function update(scene, camera, mousePosition) {
   for (let i = 0; i < intersects.length; i++) {
     if (intersects[i].object.id === fetchCube.id) {
       fetchCube.scale.set(0.7, 0.7, 0.7);
-      window.addEventListener('click', () => {
-            const sidebarDOMNode = document.querySelector('.sidebar');
-            if (sidebarDOMNode) {
-              for (const child of sidebarDOMNode.children) {
-                child.remove();
-              }
-              const fetchTabContainer = document.createElement('div');
-              fetchTabContainer.style.color = 'white';
-              fetchTabContainer.innerHTML = fetchInnerHTML;
-              sidebarDOMNode.append(fetchTabContainer);
-            }
-          }, { once: true });
+      window.addEventListener('click', setFetchContent, { once: true });
       document.body.style.cursor = "pointer";
     } else if (intersects[i].object.id === modelCube.id) {
       modelCube.scale.set(0.7, 0.7, 0.7);
-      window.addEventListener('click', () => {
-            const sidebarDOMNode = document.querySelector('.sidebar');
-            if (sidebarDOMNode) {
-              for (const child of sidebarDOMNode.children) {
-                child.remove();
-              }
-              const fetchTabContainer = document.createElement('div');
-              fetchTabContainer.style.color = 'white';
-              fetchTabContainer.innerHTML = modelInnerHTML;
-              sidebarDOMNode.append(fetchTabContainer);
-            }
-          }, { once: true });
+      window.addEventListener('click', setModelContent, { once: true });
       document.body.style.cursor = "pointer";
     }
+  }
+}
+
+// meant for event listener click on the fetch box
+function setFetchContent() {
+  const sidebarDOMNode = document.querySelector('.sidebar');
+  if (sidebarDOMNode) {
+    for (const child of sidebarDOMNode.children) {
+      child.remove();
+    }
+    const fetchTabContainer = document.createElement('div');
+    fetchTabContainer.style.color = 'white';
+    fetchTabContainer.innerHTML = fetchInnerHTML;
+    sidebarDOMNode.append(fetchTabContainer);
+  }
+}
+
+// meant for event listener click on the mode box
+function setModelContent() {
+  const sidebarDOMNode = document.querySelector('.sidebar');
+  if (sidebarDOMNode) {
+    for (const child of sidebarDOMNode.children) {
+      child.remove();
+    }
+    const fetchTabContainer = document.createElement('div');
+    fetchTabContainer.style.color = 'white';
+    fetchTabContainer.innerHTML = modelInnerHTML;
+    sidebarDOMNode.append(fetchTabContainer);
   }
 }
 
