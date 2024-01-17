@@ -10,6 +10,8 @@ This is part of *Sistemas y Tecnologías Web: Cliente* subject's `ThreeJS` assig
 
 ## Installation
 
+Edit: **Currently broken for an unknown reason** It does not serve.
+
 To serve use:
 
 `npm run install`
